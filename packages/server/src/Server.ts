@@ -1,7 +1,8 @@
-import {AfterRoutesInit, Configuration, Constant, PlatformApplication} from "@tsed/common";
+import {BeforeRoutesInit, Configuration, Constant, PlatformApplication} from "@tsed/common";
 import {Inject} from "@tsed/di";
 import "@tsed/platform-express";
 import "@tsed/swagger";
+import "@tsed/ajv";
 import * as bodyParser from "body-parser";
 import compression from "compression";
 import * as path from "path";
@@ -10,7 +11,7 @@ import helmet from "helmet";
 import cors from "cors";
 import methodOverride from "method-override";
 import cookieParser from "cookie-parser";
-import * as rest from "./controllers/index";
+import * as rest from "./controllers/rest/index";
 import {config} from "./config";
 import {BadRequest} from "@tsed/exceptions";
 import {FileFilterCallback} from "multer";
@@ -21,20 +22,30 @@ import {SessionModel} from "./model/db/Session.model";
 import {DataSource} from "typeorm";
 import {SQLITE_DATA_SOURCE} from "./model/di/tokens";
 import {isProduction} from "./config/envs";
+import GlobalEnv from "./model/constants/GlobalEnv";
+import * as views from "./controllers/views";
 
 const rootDir = __dirname;
 const clientDir = path.join(rootDir, "../../client/dist");
 
-@Configuration({
+const opts: Partial<TsED.Configuration> = {
     rootDir,
     ...config,
     acceptMimes: ["application/json"],
-    httpPort: process.env.PORT || 8081,
-    httpsPort: false,
+    httpPort: process.env.PORT ?? 8083,
+    httpsPort: (function (): number | boolean {
+        if (process.env.HTTPS === "true") {
+            return Number.parseInt(process.env.HTTPS_PORT as string);
+        }
+        return false;
+    }()),
     mount: {
         "/rest": [
             ...Object.values(rest)
-        ]
+        ],
+        "/": [
+            ...Object.values(views)
+        ],
     },
     componentsScan: [`./services/**/**.js`],
     multer: {
@@ -56,11 +67,6 @@ const clientDir = path.join(rootDir, "../../client/dist");
         },
         preservePath: true
     },
-    swagger: [
-        {
-            path: "/api-docs"
-        }
-    ],
     passport: {
         userInfoModel: CustomUserInfoModel
     },
@@ -92,23 +98,40 @@ const clientDir = path.join(rootDir, "../../client/dist");
                 root: clientDir
             }
         ]
-    }
-})
-export class Server implements AfterRoutesInit {
+    },
+    exclude: [
+        "**/*.spec.ts"
+    ]
+};
+
+if (!isProduction) {
+    opts["swagger"] = [
+        {
+            path: "/api-docs",
+            specVersion: "3.0.3",
+            options: {
+                withCredentials: true
+            }
+        }
+    ];
+}
+
+@Configuration(opts)
+export class Server implements BeforeRoutesInit {
 
     @Inject()
     private app: PlatformApplication;
 
-    @Constant("envs.SESSION_KEY")
+    @Constant(GlobalEnv.SESSION_KEY)
     private readonly sessionKey: string;
 
-    @Constant("envs.HTTPS")
+    @Constant(GlobalEnv.HTTPS)
     private readonly https: string;
 
     @Inject(SQLITE_DATA_SOURCE)
     private ds: DataSource;
 
-    public $afterRoutesInit(): void | Promise<any> {
+    public $beforeRoutesInit(): void | Promise<any> {
         this.app.use(session({
             secret: this.sessionKey,
             resave: false,
@@ -127,17 +150,17 @@ export class Server implements AfterRoutesInit {
         if (isProduction) {
             this.app.getApp().set("trust proxy", 1);
         }
-        this.app.get("/", (req: any, res: any) => {
-            if (!res.headersSent) {
-                // prevent index.html caching
-                res.set({
-                    "Cache-Control": "no-cache, no-store, must-revalidate",
-                    "Pragma": "no-cache"
-                });
-            }
-        });
-        this.app.get(`*`, (req: any, res: any) => {
-            res.sendFile(path.join(clientDir, "index.html"));
-        });
+        // this.app.get("/", (req: any, res: any) => {
+        //     if (!res.headersSent) {
+        //         // prevent index.html caching
+        //         res.set({
+        //             "Cache-Control": "no-cache, no-store, must-revalidate",
+        //             "Pragma": "no-cache"
+        //         });
+        //     }
+        // });
+        // this.app.get(`*`, (req: any, res: any) => {
+        //     res.sendFile(path.join(clientDir, "index.html"));
+        // });
     }
 }

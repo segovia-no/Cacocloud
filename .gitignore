@@ -128,3 +128,17 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+**/tmp/*
+.openode
+.env.*
+!.env.example
+/build
+**build/**
+**.idea/**
+.idea/
+/database_test.sqlite-wal
+/database_test.sqlite-shm
+/*.sqlite-shm
+/*.sqlite-wal
+*.sqlite
+customWads/**

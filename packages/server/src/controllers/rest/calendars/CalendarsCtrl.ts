@@ -1,6 +1,6 @@
 import {NotFound} from "@tsed/exceptions";
-import {Calendar, CreateCalendar} from "../../model/Calendar";
-import {CalendarsService} from "../../services/calendars/CalendarsService";
+import {Calendar, CreateCalendar} from "../../../model/Calendar";
+import {CalendarsService} from "../../../services/calendars/CalendarsService";
 import {EventsCtrl} from "../events/EventsCtrl";
 import {BodyParams, Controller, Delete, Get, PathParams, Post, Put} from "@tsed/common";
 import {Required} from "@tsed/schema";

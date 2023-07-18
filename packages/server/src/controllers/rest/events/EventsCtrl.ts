@@ -1,15 +1,15 @@
 import {BodyParams, Controller, Delete, Get, PathParams, Post, Put, UseBefore} from "@tsed/common";
 import {NotFound} from "@tsed/exceptions";
-import {CheckCalendarIdMiddleware} from "../../middlewares/CheckCalendarIdMiddleware";
-import {Event} from "../../interfaces/Event";
-import {Task} from "../../interfaces/Task";
+import {CheckCalendarIdMiddleware} from "../../../middlewares/CheckCalendarIdMiddleware";
+import {Event} from "../../../interfaces/Event";
+import {Task} from "../../../interfaces/Task";
 import {Required} from "@tsed/schema";
 
 @Controller("/:calendarId/events")
 @UseBefore(CheckCalendarIdMiddleware)
 export class EventsCtrl {
     private AUTO_INC = 5;
-    private events: Event[] = require("../../../resources/events.json");
+    private events: Event[] = require("../../../../resources/events.json");
 
     @Get("/:id")
     public async get(@Required() @PathParams("calendarId") calendarId: string,

@@ -4,3 +4,4 @@
 
 export * from "./calendars/CalendarsCtrl";
 export * from "./events/EventsCtrl";
+export * from "./security/PassportCtrl";

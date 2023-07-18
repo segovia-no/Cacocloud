@@ -1,7 +1,8 @@
-import {$log, registerProvider} from "@tsed/common";
+import {$log, Logger as TsEdLogger, registerProvider} from "@tsed/common";
 import {PlatformExpress} from "@tsed/platform-express";
 import {Server} from "./Server";
 import {DataSource} from "typeorm";
+import {SQLITE_DATA_SOURCE} from "./model/di/tokens";
 
 async function bootstrap(): Promise<void> {
 
