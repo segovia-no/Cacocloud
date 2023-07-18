@@ -18,7 +18,7 @@
     "build:client": "lerna run build --scope=@project/client --stream",
     "build:server": "lerna run build --scope=@project/server --stream",
     "start": "lerna run start --stream --parallel",
-    "start:client": "lerna run start --scope=@project/client --stream",
+    "start:client": "lerna run dev --scope=@project/client --stream",
     "start:server": "lerna run start --scope=@project/server --stream",
     "start:prod": "cross-env NODE_ENV=production pm2-docker --raw processes.config.js --no-deamon",
     "docker:build": "yarn build && docker-compose build"
@@ -60,10 +60,6 @@
     }
   },
   "lint-staged": {
-    "packages/client/**/*.{js,vue}": [
-      "cd packages/client && yarn lint:fix",
-      "git add"
-    ],
     "packages/server/**/*.{ts}": [
       "cd packages/server && yarn lint:fix",
       "git add"
