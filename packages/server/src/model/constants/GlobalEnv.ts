@@ -15,6 +15,7 @@ enum GlobalEnv {
     RECAPTCHA_SITE_KEY = `${prefix}RECAPTCHA_SITE_KEY`,
     RECAPTCHA_SECRET_KEY = `${prefix}RECAPTCHA_SECRET_KEY`,
     FILE_SIZE_UPLOAD_LIMIT_MB = `${prefix}FILE_SIZE_UPLOAD_LIMIT_MB`,
+    WAD_ANALYSER_URI = `${prefix}WAD_ANALYSER_URI`
 }
 
 export default GlobalEnv;

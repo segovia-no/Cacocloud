@@ -15,3 +15,6 @@ export type HttpErrorRenderObj = {
     message: string,
     internalError: Exception
 }
+
+
+export type WADMetadata = {}

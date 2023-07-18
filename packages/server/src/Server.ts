@@ -150,17 +150,5 @@ export class Server implements BeforeRoutesInit {
         if (isProduction) {
             this.app.getApp().set("trust proxy", 1);
         }
-        // this.app.get("/", (req: any, res: any) => {
-        //     if (!res.headersSent) {
-        //         // prevent index.html caching
-        //         res.set({
-        //             "Cache-Control": "no-cache, no-store, must-revalidate",
-        //             "Pragma": "no-cache"
-        //         });
-        //     }
-        // });
-        // this.app.get(`*`, (req: any, res: any) => {
-        //     res.sendFile(path.join(clientDir, "index.html"));
-        // });
     }
 }
