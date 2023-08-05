@@ -6,10 +6,12 @@
   <q-header elevated class="bg-red-8 text-white" height-hint="98">
     <q-toolbar>
       <q-toolbar-title>
-        <q-avatar>
+        <q-avatar class="q-mr-sm">
           <img src="cacologo.png">
         </q-avatar>
-        CacoCloud
+        <span>
+          <strong>Caco</strong>Cloud_
+        </span>
       </q-toolbar-title>
     </q-toolbar>
 
