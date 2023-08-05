@@ -1,6 +1,7 @@
 import {Description, Example, Name, Required} from "@tsed/schema";
 import {AbstractModel} from "./AbstractModel";
 import {Column, Entity, ManyToOne} from "typeorm";
+
 import {WADModel} from "./Wad.model";
 
 @Entity()

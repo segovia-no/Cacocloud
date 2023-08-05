@@ -1,7 +1,9 @@
 import {Description, Example, Name, Required} from "@tsed/schema";
 import {AbstractModel} from "./AbstractModel";
 import {Column, Entity, ManyToMany, OneToMany} from "typeorm";
+
 import { MapModel } from "./Map.model";
+import { LumpModel } from "./Lump.model";
 import { TagModel } from "./Tags.model";
 
 @Entity()
@@ -14,6 +16,9 @@ export class WADModel extends AbstractModel {
     @Required()
     public name: string;
 
+    /**
+     * This is the filename of the WAD, PK3 or ZIP file
+     */
     @Column()
     @Description("Filename")
     @Example("aaliens.zip")
@@ -52,10 +57,10 @@ export class WADModel extends AbstractModel {
     @OneToMany(() => MapModel, map => map.wad)
     public maps: MapModel[];
 
+    @OneToMany(() => LumpModel, lump => lump.wad)
+    public lumps: LumpModel[];
+
     @ManyToMany(() => TagModel, tag => tag.wads)
     public tags: TagModel[];
-
-    // TODO: WADLumps, one-to-many
-    // TODO: WADMusic, one-to-many
 
 }
