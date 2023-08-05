@@ -2,6 +2,7 @@ import { createApp } from 'vue'
 import { Quasar } from 'quasar'
 import './style.css'
 import App from './App.vue'
+import Router from './router'
 
 // Import icon libraries
 import '@quasar/extras/material-icons/material-icons.css'
@@ -10,10 +11,12 @@ import '@quasar/extras/material-icons/material-icons.css'
 import 'quasar/src/css/index.sass'
 
 
-const myApp = createApp(App)
+const app = createApp(App)
 
-myApp.use(Quasar, {
+app.use(Quasar, {
   plugins: {},
 })
 
-myApp.mount('#app')
+app.use(Router)
+
+app.mount('#app')
