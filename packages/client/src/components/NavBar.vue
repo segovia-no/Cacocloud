@@ -15,17 +15,23 @@
         </span>
       </q-toolbar-title>
 
-      <q-tabs align="left">
+      <q-tabs align="left" class="navbaritems">
         <q-route-tab to="/" label="Home" />
-        <q-route-tab to="/" label="Explore" />
+        <q-route-tab to="/explore" label="Explore" />
         <q-route-tab to="/search" label="Search" />
-        <q-route-tab to="/" label="Random WAD" />
       </q-tabs>
 
     </q-toolbar>
   </q-header>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
+.navbaritems {
 
+  a:hover {
+    color: white;
+    background-color: $red-5;
+  }
+
+}
 </style>

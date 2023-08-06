@@ -9,7 +9,7 @@
         <div class="text-h6">
           Welcome to <strong>Caco</strong>Cloud_
         </div>
-        <div class="text-subtitle2">A new way to archive WAD's</div>
+        <div class="text-subtitle2">A faster way to find WADs</div>
       </div>
 
       <q-img
@@ -21,8 +21,12 @@
     <q-separator />
 
     <q-card-actions>
-      <q-btn color="red-7">Explore WADs</q-btn>
-      <q-btn color="">Search WADs</q-btn>
+      <router-link to="/explore" class="q-mr-sm">
+        <q-btn color="red-7">Explore WADs</q-btn>
+      </router-link>
+      <router-link to="/search">
+        <q-btn color="">Search WADs</q-btn>
+      </router-link>
     </q-card-actions>
   </q-card>
 </template>
