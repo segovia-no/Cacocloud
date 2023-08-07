@@ -11,15 +11,19 @@
     "lint:fix": "eslint --fix --ext .vue,.js,.cjs,.mjs,.ts ."
   },
   "dependencies": {
+    "@quasar/extras": "^1.16.5",
     "@typescript-eslint/eslint-plugin": "^6.1.0",
     "@typescript-eslint/parser": "^6.1.0",
     "eslint-plugin-vue": "^9.15.1",
+    "quasar": "^2.12.3",
     "vue": "^3.3.4"
   },
   "devDependencies": {
+    "@quasar/vite-plugin": "^1.4.1",
     "@vitejs/plugin-vue": "^4.2.3",
     "eslint": "^8.45.0",
     "prettier": "^3.0.0",
+    "sass": "^1.32.12",
     "typescript": "^5.0.2",
     "vite": "^4.4.0",
     "vue-tsc": "^1.8.3"
